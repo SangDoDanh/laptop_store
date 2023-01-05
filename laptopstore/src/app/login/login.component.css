@@ -1,0 +1,154 @@
+*:not(i) {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+ul,
+li,
+p,
+h1,
+body,
+html,
+form,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+
+.aap__login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #EECDA3;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #EF629F, #EECDA3);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #EF629F, #EECDA3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.login__form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 12px;
+  width: 36%;
+  height: 90vh;
+  box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.35);
+  border-radius: 6px;
+  background-color: white;
+}
+
+.login__header {
+  width: 100%;
+}
+
+.logo {
+  font-size: 100px;
+  color: #f9556d;
+}
+.input__group {
+  margin-bottom: 24px;
+}
+
+.login__heading {
+  color: #f9556d;
+}
+
+.login__footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.btn__sigup,
+.btn_login {
+  font-size: 18px;
+  border: none;
+  border-radius: 25px;
+  padding: 6px 12px;
+  width: 100%;
+  background-color: white;
+  border: 1px solid #f9556d;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.input__group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input__group input {
+  font-size: 16px;
+  outline: none;
+  border: 1px solid #f9556d;
+  padding: 8px 10px;
+  border-radius: 4px;
+}
+
+.input__group label {
+  font-size: 16px;
+  color: #f9556d;
+}
+
+.login__google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #f9556d;
+  text-decoration: underline;
+}
+
+.sign__up:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.login__google:hover span {
+  opacity: 0.7;
+}
+
+.login__remember {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: gray;
+  align-items: center;
+  margin-bottom: 24px;
+
+}
+
+.login__remember input {
+  margin-right: 4px;
+}
+
+.sign__up {
+  color: #f9556d;
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+.btn__sigup:hover,
+.btn_login:hover {
+  opacity: 0.7;
+}
+
+.btn_login {
+  background: #ec008c;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #fc6767, #ec008c);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #fc6767, #ec008c);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: white;
+}
+
+.btn__sigup {
+  color: #ec008c;
+}

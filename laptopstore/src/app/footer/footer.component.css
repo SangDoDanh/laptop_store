@@ -1,0 +1,130 @@
+*:not(i) {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+ul,
+li,
+p,
+h1,
+body,
+html,
+form,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+
+footer{
+  background-color: #ecf0f1;
+}
+
+.footer__tile {
+  color: #ec008c;
+  font-size: 20px;
+  margin-bottom: 12px;
+  border-bottom: 3px solid #ec008c;
+}
+.logo {
+  font-size: 72px;
+  background: -webkit-linear-gradient( #fc6767, #ec008c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.socical__list {
+  width: 75%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.socical__item {
+  font-size: 28px;
+  margin-right: 12px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.socical__item:hover {
+  opacity: 0.7;
+}
+.socical__item.facebook {
+  background: -webkit-linear-gradient( #1eb0ff, #0268e3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.socical__item.instagram {
+  background: -webkit-linear-gradient( #7a0ef6, #f7bf01);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.socical__item.youtube {
+  background: -webkit-linear-gradient( #ff0000, #ff0000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.slogain {
+  color: #ec008c;
+  font-size: 12px;
+}
+.pay__item {
+  height: 43px;
+  width: 136px;
+  background-image: url('/assets/images/pp_fc_hl.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.form__send{
+  padding: 8px;
+}
+
+.email__send{
+  width: 100%;
+  padding: 4px;
+  outline: none;
+  border: 1px solid #ec008c;
+  margin-bottom: 12px;
+  border-radius: 4px;
+}
+
+.content__send {
+  width: 100%;
+  padding: 8px;
+  outline: none;
+  border: 1px solid #ec008c;
+  margin-bottom: 12px;
+  border-radius: 4px;
+}
+
+.btn__send {
+  padding: 4px;
+  border: none;
+  width: 100%;
+  border-radius: 25px;
+  background: #ec008c;
+  background: -webkit-linear-gradient(to right, #fc6767, #ec008c);
+  background: linear-gradient(to right, #fc6767, #ec008c);
+  color: white;
+}
+
+.color__primary {
+  color: #ec008c;
+}
+.note {
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+.x-2 {
+  font-size: 20px !important;
+}

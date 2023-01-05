@@ -195,7 +195,12 @@ h6 {
 
 .note {
     color: #7f8c8d;
-    font-size: 12px;
+    font-size: 12px !important;
+}
+.note .color__primary {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 12px !important;
 }
 
 .color__primary {
