@@ -1,6 +1,17 @@
-package com.codegym.model.product;
+package com.codegym.model.employee;
 
+import com.codegym.model.location.Location;
+import com.codegym.model.orders.Orders;
+import com.codegym.model.orders.WarrantyOrdersDetail;
+import com.codegym.model.user.Account;
+
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
 public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String firstName;
     private String lastName;
@@ -9,11 +20,46 @@ public class Employee {
     private Integer dedicationPoints;
     private String email;
     private String phone;
-    private Account account;
     private String idCard;
     private Boolean isRemove;
 
+    @OneToMany(mappedBy = "employee")
+    private Set<WarrantyOrdersDetail> warrantyOrdersDetails;
+    @OneToOne
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
+    private Account account;
+
+    @OneToMany(mappedBy = "employee")
+    private Set<Orders> orders;
+
+    @OneToMany(mappedBy = "employee")
+    private Set<Location> locations;
+
     public Employee() {
+    }
+
+    public Set<WarrantyOrdersDetail> getWarrantyOrdersDetails() {
+        return warrantyOrdersDetails;
+    }
+
+    public void setWarrantyOrdersDetails(Set<WarrantyOrdersDetail> warrantyOrdersDetails) {
+        this.warrantyOrdersDetails = warrantyOrdersDetails;
+    }
+
+    public Set<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Orders> orders) {
+        this.orders = orders;
+    }
+
+    public Set<Location> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(Set<Location> locations) {
+        this.locations = locations;
     }
 
     public Integer getId() {

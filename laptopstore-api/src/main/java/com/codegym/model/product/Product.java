@@ -1,27 +1,66 @@
 package com.codegym.model.product;
 
+import com.codegym.model.orders.OrdersDetail;
+
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Boolean isRemove;
-    private Double price;
     private String color;
-    private Boolean isFingerprint;
     private Integer qualityUseRam;
     private Integer qualityAllRam;
     private Integer sizeRamMax;
+    @ManyToOne
+    @JoinColumn(name = "discount_id", referencedColumnName = "id")
     private Discount discount;
-    private ProductGroup productGroup;
+
+    @ManyToOne
+    @JoinColumn(name = "displayTech_id", referencedColumnName = "id")
     private DisplayTech displayTech;
-    private SizeInch sizeInch;
+    @ManyToOne
+    @JoinColumn(name = "resolution_id", referencedColumnName = "id")
     private Resolution resolution;
+    @ManyToOne
+    @JoinColumn(name = "lapCPU_id", referencedColumnName = "id")
     private LapCPU lapCPU;
+    @ManyToOne
+    @JoinColumn(name = "lapGPU_id", referencedColumnName = "id")
     private LapGPU lapGPU;
+    @ManyToOne
+    @JoinColumn(name = "lapRam_id", referencedColumnName = "id")
     private LapRam lapRam;
+    @ManyToOne
+    @JoinColumn(name = "lapMemorySSD_id", referencedColumnName = "id")
     private LapMemory lapMemorySSD;
-    private LapMemory getLapMemoryHDD;
+
+    @ManyToOne
+    @JoinColumn(name = "lapMemoryHD_id", referencedColumnName = "id")
+    private LapMemory lapMemoryHDD;
+    @ManyToOne
+    @JoinColumn(name = "screenRatio_id", referencedColumnName = "id")
     private ScreenRatio screenRatio;
 
+    @ManyToOne
+    @JoinColumn(name = "productGroup_id", referencedColumnName = "id")
+    private ProductGroup productGroup;
+
+    @OneToMany(mappedBy = "product")
+    private Set<OrdersDetail> ordersDetails;
+
     public Product() {
+    }
+
+    public Set<OrdersDetail> getOrdersDetails() {
+        return ordersDetails;
+    }
+
+    public void setOrdersDetails(Set<OrdersDetail> ordersDetails) {
+        this.ordersDetails = ordersDetails;
     }
 
     public Integer getId() {
@@ -40,28 +79,12 @@ public class Product {
         isRemove = remove;
     }
 
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
     public String getColor() {
         return color;
     }
 
     public void setColor(String color) {
         this.color = color;
-    }
-
-    public Boolean getFingerprint() {
-        return isFingerprint;
-    }
-
-    public void setFingerprint(Boolean fingerprint) {
-        isFingerprint = fingerprint;
     }
 
     public Integer getQualityUseRam() {
@@ -112,14 +135,6 @@ public class Product {
         this.displayTech = displayTech;
     }
 
-    public SizeInch getSizeInch() {
-        return sizeInch;
-    }
-
-    public void setSizeInch(SizeInch sizeInch) {
-        this.sizeInch = sizeInch;
-    }
-
     public Resolution getResolution() {
         return resolution;
     }
@@ -160,12 +175,12 @@ public class Product {
         this.lapMemorySSD = lapMemorySSD;
     }
 
-    public LapMemory getGetLapMemoryHDD() {
-        return getLapMemoryHDD;
+    public LapMemory getLapMemoryHDD() {
+        return lapMemoryHDD;
     }
 
-    public void setGetLapMemoryHDD(LapMemory getLapMemoryHDD) {
-        this.getLapMemoryHDD = getLapMemoryHDD;
+    public void setLapMemoryHDD(LapMemory lapMemoryHDD) {
+        this.lapMemoryHDD = lapMemoryHDD;
     }
 
     public ScreenRatio getScreenRatio() {

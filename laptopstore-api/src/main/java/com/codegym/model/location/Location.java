@@ -1,6 +1,14 @@
-package com.codegym.model.product;
+package com.codegym.model.location;
 
+import com.codegym.model.customer.Customer;
+import com.codegym.model.employee.Employee;
+
+import javax.persistence.*;
+
+@Entity
 public class Location {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Boolean isRemove;
     private String province;
@@ -8,7 +16,11 @@ public class Location {
     private Boolean isUse;
     private String districtChild;
     private String detail;
+    @ManyToOne()
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
+    @ManyToOne()
+    @JoinColumn(name = "employee_id", referencedColumnName = "id")
     private Employee employee;
 
     public Location() {

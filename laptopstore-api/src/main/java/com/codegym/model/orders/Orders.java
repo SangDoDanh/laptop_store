@@ -1,13 +1,39 @@
-package com.codegym.model.product;
+package com.codegym.model.orders;
+
+import com.codegym.model.customer.Customer;
+import com.codegym.model.employee.Employee;
+
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
 
 public class Orders {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Boolean isRemove;
     private String orderDay;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
+    @ManyToOne
+    @JoinColumn(name = "employee_id", referencedColumnName = "id")
     private Employee employee;
 
+    @OneToMany(mappedBy = "orders")
+    private Set<OrdersDetail> ordersDetails;
+
     public Orders() {
+    }
+
+    public Set<OrdersDetail> getOrdersDetails() {
+        return ordersDetails;
+    }
+
+    public void setOrdersDetails(Set<OrdersDetail> ordersDetails) {
+        this.ordersDetails = ordersDetails;
     }
 
     public Integer getId() {

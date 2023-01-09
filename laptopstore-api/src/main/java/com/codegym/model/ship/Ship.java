@@ -1,13 +1,32 @@
-package com.codegym.model.product;
+package com.codegym.model.ship;
 
+import com.codegym.model.orders.OrdersDetail;
+
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
 public class Ship {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Boolean isRemove;
     private String name;
     private Double fareSize;
     private Double fareWeight;
 
+    @OneToMany(mappedBy = "ship")
+    private Set<OrdersDetail> ordersDetails;
+
     public Ship() {
+    }
+
+    public Set<OrdersDetail> getOrdersDetails() {
+        return ordersDetails;
+    }
+
+    public void setOrdersDetails(Set<OrdersDetail> ordersDetails) {
+        this.ordersDetails = ordersDetails;
     }
 
     public Integer getId() {

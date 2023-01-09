@@ -1,12 +1,30 @@
 package com.codegym.model.product;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
 public class Resolution {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Boolean isRemove;
     private String name;
     private String val;
 
+    @OneToMany(mappedBy = "resolution")
+    private Set<Product> products;
+
     public Resolution() {
+    }
+
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 
     public Integer getId() {

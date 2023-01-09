@@ -1,11 +1,28 @@
 package com.codegym.model.product;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
 public class DisplayTech {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Boolean isRemove;
     private String name;
 
+    @OneToMany(mappedBy = "displayTech")
+    private Set<Product> products;
+
     public DisplayTech() {
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 
     public Integer getId() {

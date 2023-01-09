@@ -1,6 +1,16 @@
-package com.codegym.model.product;
+package com.codegym.model.customer;
 
+import com.codegym.model.location.Location;
+import com.codegym.model.orders.Orders;
+import com.codegym.model.user.Account;
+
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
 public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String firstName;
     private String lastName;
@@ -9,11 +19,38 @@ public class Customer {
     private Integer DedicationPoint;
     private String email;
     private String phone;
+    @OneToMany(mappedBy = "customer")
+    private Set<Orders> orders;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Location> locations;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_type_id", referencedColumnName = "id")
     private CustomerType customerType;
+
+    @OneToOne
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
     private Boolean isRemove;
 
     public Customer() {
+    }
+
+    public Set<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Orders> orders) {
+        this.orders = orders;
+    }
+
+    public Set<Location> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(Set<Location> locations) {
+        this.locations = locations;
     }
 
     public Integer getId() {

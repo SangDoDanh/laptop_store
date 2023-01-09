@@ -1,14 +1,32 @@
 package com.codegym.model.product;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
 public class LapGPU {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Boolean isRemove;
     private String name;
     private int qualityCore;
     private int qualityThread;
+    @ManyToOne
+    @JoinColumn(name = "producer_id", referencedColumnName = "id")
     private Producer producer;
 
+    @OneToMany(mappedBy = "lapGPU")
+    private Set<Product> products;
     public LapGPU() {
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 
     public Integer getId() {

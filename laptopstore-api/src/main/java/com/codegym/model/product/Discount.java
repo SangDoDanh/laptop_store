@@ -1,6 +1,12 @@
 package com.codegym.model.product;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
 public class Discount {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Boolean isRemove;
     private String name;
@@ -8,7 +14,18 @@ public class Discount {
     private String endDay;
     private Integer discountVal;
 
+    @OneToMany(mappedBy = "discount")
+    private Set<Product> products;
+
     public Discount() {
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 
     public Integer getId() {

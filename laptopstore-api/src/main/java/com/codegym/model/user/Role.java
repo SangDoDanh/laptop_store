@@ -1,11 +1,28 @@
-package com.codegym.model.product;
+package com.codegym.model.user;
 
-public class CustomerType {
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
+public class Role {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private Boolean isRemove;
 
-    public CustomerType() {
+    @OneToMany(mappedBy = "role")
+    private Set<AccountRole> accountRoles;
+
+    public Role() {
+    }
+
+    public Set<AccountRole> getAccountRoles() {
+        return accountRoles;
+    }
+
+    public void setAccountRoles(Set<AccountRole> accountRoles) {
+        this.accountRoles = accountRoles;
     }
 
     public Integer getId() {

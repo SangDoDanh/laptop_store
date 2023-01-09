@@ -1,9 +1,19 @@
-package com.codegym.model.product;
+package com.codegym.model.user;
 
+import javax.persistence.*;
+
+@Entity
 public class AccountRole {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Boolean isRemove;
+
+    @ManyToOne
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
+    @ManyToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
 
     public AccountRole() {

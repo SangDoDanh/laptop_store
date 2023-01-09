@@ -1,7 +1,7 @@
 <div class="container mt-4">
   <div class="row">
     <div class="col-lg-12">
-      <form class="form__search">
+      <form class="form__search" *ngIf="rfSearch" [formGroup]="rfSearch">
         <ul class="menu__search--logo">
           <li class="menu__search--item active">
             <img class="menu__search--link" src="./assets/images/logo-macbook-149x40.png" alt="">
@@ -33,53 +33,35 @@
         </ul>
         <div class="d-flex flex-wrap w-50">
           <div class="w-50 search__group">
-            <input type="text" class="input__search w-100 mb-3" placeholder="Bạn muốn tìm gì?">
+            <input formControlName="nameSearch" type="text" class="input__search w-100 mb-3" placeholder="Bạn muốn tìm gì?">
             <button type="button" class="btn-search">
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>
           </div>
           <div class="w-50 search__group">
-            <select name="" id="" class="w-100 mb-3 select__search">
-              <option value="">--Chọn mức giá--</option>
-              <option value="">Tất cả</option>
-              <option value="">Dưới 10 triệu</option>
-              <option value="">Từ 10 đến 15 triệu</option>
-              <option value="">Từ 15 đến 20 triệu</option>
-              <option value="">Từ 20 đến 25 triệu</option>
-              <option value="">Từ 25 đến 35 triệu</option>
-              <option value="">Trên 35 triệu</option>
+            <select formControlName="priceSearch" name="" id="" class="w-100 mb-3 select__search">
+              <option [value]="''">--Chọn mức giá--</option>
+              <option [value]="0">Tất cả</option>
+              <option [value]="10">Dưới 10 triệu</option>
+              <option [value]="15">Từ 10 đến 15 triệu</option>
+              <option [value]="20">Từ 15 đến 20 triệu</option>
+              <option [value]="25">Từ 20 đến 25 triệu</option>
+              <option [value]="35">Từ 25 đến 35 triệu</option>
+              <option [value]="36">Trên 35 triệu</option>
             </select>
           </div>
           <div>
-            <ul class="menu__search--size">
-              <li class="search__size--item active" >
-                <input type="checkbox" checked>
-                <label for="">
+            <ul class="menu__search--size" *ngIf="sizeInchList">
+              <li class="search__size--item active mt-1" >
+                <input type="checkbox" checked id="all-search-inch">
+                <label for=""  style="margin-left: 4px">
                   <span>Tất cả</span>
                 </label>
               </li>
-              <li class="search__size--item">
-                <input type="checkbox">
-                <label for="">
-                  <span>13 inch</span>
-                </label>
-              </li>
-              <li class="search__size--item">
-                <input type="checkbox">
-                <label for="">
-                  <span>14 inch</span>
-                </label>
-              </li>
-              <li class="search__size--item">
-                <input type="checkbox">
-                <label for="">
-                  <span>15 inch</span>
-                </label>
-              </li>
-              <li class="search__size--item">
-                <input type="checkbox">
-                <label for="">
-                  <span>17 inch</span>
+              <li *ngFor="let sizeInch of sizeInchList, index as i" class="mt-1 search__size--item">
+                <input (change)="alo(sizeInch.id)" formControlName="inchSearch" id="inchSearch{{i}}" type="checkbox" [value]="sizeInch.id" name="size-inch">
+                <label for="inchSearch{{i}}" style="margin-left: 4px">
+                  <span>{{sizeInch.name}} inch</span>
                 </label>
               </li>
             </ul>
@@ -89,394 +71,42 @@
     </div>
   </div>
   <div class="row product__list">
-    <div class="col-lg-3 mt-4">
+    <div *ngFor ="let productGroup of productGroups, index as i" class="col-lg-3 mt-4">
       <div class="my__card">
         <div class="card__header">
-          <img class="d-block w-100" src="./assets/images/mac1.webp" alt="">
+          <img class="d-block w-100" src="{{productGroup.urlImgs}}" alt="">
         </div>
         <div class="card__body">
           <div class="product__price">
-            <p class="product__price--now">32.000.000 đ</p>
+            <p class="product__price--now">{{productGroup.price| number}} <sup>đ</sup></p>
             <p class="product__price--discount">
-              <span class="price--discount">35.000.000 đ</span>
+              <span class="price--discount">{{productGroup.price + productGroup.price * 0.2 | number}} <sup>đ</sup></span>
               <span>2 ngày 20h : 34p : 33</span>
             </p>
           </div>
           <div class="product__title">
-            <p>MacBook Pro 13 inch M2 2022</p>
+            <p  routerLink="/product-detail">{{productGroup.name}}</p>
           </div>
           <div class="product__configuration">
             <div class="product__propertie">
               <i class="fa-solid fa-laptop-code"></i>
-              <span>13.3 inch</span>
+              <span>{{productGroup.size}} inch</span>
             </div>
             <div class="product__propertie">
               <i class="fa-solid fa-microchip"></i>
-              <span>M1 pro</span>
+              <span *ngIf="productGroupDetail.length > 0">{{productGroupDetail[i]?.cpuName}}</span>
             </div>
             <div class="product__propertie">
               <i class="fa-solid fa-microchip"></i>
-              <span>Apple M1</span>
+              <span>{{productGroupDetail[i]?.gpuName}}</span>
             </div>
             <div class="product__propertie">
               <i class="fa-solid fa-memory"></i>
-              <span>32Gb</span>
+              <span>{{productGroupDetail[i]?.ram}} GB</span>
             </div>
             <div class="product__propertie">
               <i class="fa-solid fa-weight-hanging"></i>
-              <span>1.29 kg</span>
-            </div>
-          </div>
-        </div>
-        <div class="card__footer">
-          <button routerLink="/product-detail" class="product__pay">Mua Ngay</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 mt-4">
-      <div class="my__card">
-        <div class="card__header">
-          <img class="d-block w-100" src="./assets/images/mac1.webp" alt="">
-        </div>
-        <div class="card__body">
-          <div class="product__price">
-            <p class="product__price--now">32.000.000 đ</p>
-            <p class="product__price--discount">
-              <span class="price--discount">35.000.000 đ</span>
-              <span>2 ngày 20h : 34p : 33</span>
-            </p>
-          </div>
-          <div class="product__title">
-            <p>MacBook Pro 13 inch M2 2022</p>
-          </div>
-          <div class="product__configuration">
-            <div class="product__propertie">
-              <i class="fa-solid fa-laptop-code"></i>
-              <span>13.3 inch</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-microchip"></i>
-              <span>M1 pro</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-microchip"></i>
-              <span>Apple M1</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-memory"></i>
-              <span>32Gb</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-weight-hanging"></i>
-              <span>1.29 kg</span>
-            </div>
-          </div>
-        </div>
-        <div class="card__footer">
-          <button routerLink="/product-detail" class="product__pay">Mua Ngay</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 mt-4">
-      <div class="my__card">
-        <div class="card__header">
-          <img class="d-block w-100" src="./assets/images/mac1.webp" alt="">
-        </div>
-        <div class="card__body">
-          <div class="product__price">
-            <p class="product__price--now">32.000.000 đ</p>
-            <p class="product__price--discount">
-              <span class="price--discount">35.000.000 đ</span>
-              <span>2 ngày 20h : 34p : 33</span>
-            </p>
-          </div>
-          <div class="product__title">
-            <p>MacBook Pro 13 inch M2 2022</p>
-          </div>
-          <div class="product__configuration">
-            <div class="product__propertie">
-              <i class="fa-solid fa-laptop-code"></i>
-              <span>13.3 inch</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-microchip"></i>
-              <span>M1 pro</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-microchip"></i>
-              <span>Apple M1</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-memory"></i>
-              <span>32Gb</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-weight-hanging"></i>
-              <span>1.29 kg</span>
-            </div>
-          </div>
-        </div>
-        <div class="card__footer">
-          <button routerLink="/product-detail" class="product__pay">Mua Ngay</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 mt-4">
-      <div class="my__card">
-        <div class="card__header">
-          <img class="d-block w-100" src="./assets/images/mac1.webp" alt="">
-        </div>
-        <div class="card__body">
-          <div class="product__price">
-            <p class="product__price--now">32.000.000 đ</p>
-            <p class="product__price--discount">
-              <span class="price--discount">35.000.000 đ</span>
-              <span>2 ngày 20h : 34p : 33</span>
-            </p>
-          </div>
-          <div class="product__title">
-            <p>MacBook Pro 13 inch M2 2022</p>
-          </div>
-          <div class="product__configuration">
-            <div class="product__propertie">
-              <i class="fa-solid fa-laptop-code"></i>
-              <span>13.3 inch</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-microchip"></i>
-              <span>M1 pro</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-microchip"></i>
-              <span>Apple M1</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-memory"></i>
-              <span>32Gb</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-weight-hanging"></i>
-              <span>1.29 kg</span>
-            </div>
-          </div>
-        </div>
-        <div class="card__footer">
-          <button routerLink="/product-detail" class="product__pay">Mua Ngay</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 mt-4">
-      <div class="my__card">
-        <div class="card__header">
-          <img class="d-block w-100" src="./assets/images/mac1.webp" alt="">
-        </div>
-        <div class="card__body">
-          <div class="product__price">
-            <p class="product__price--now">32.000.000 đ</p>
-            <p class="product__price--discount">
-              <span class="price--discount">35.000.000 đ</span>
-              <span>2 ngày 20h : 34p : 33</span>
-            </p>
-          </div>
-          <div class="product__title">
-            <p>MacBook Pro 13 inch M2 2022</p>
-          </div>
-          <div class="product__configuration">
-            <div class="product__propertie">
-              <i class="fa-solid fa-laptop-code"></i>
-              <span>13.3 inch</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-microchip"></i>
-              <span>M1 pro</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-microchip"></i>
-              <span>Apple M1</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-memory"></i>
-              <span>32Gb</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-weight-hanging"></i>
-              <span>1.29 kg</span>
-            </div>
-          </div>
-        </div>
-        <div class="card__footer">
-          <button routerLink="/product-detail" class="product__pay">Mua Ngay</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 mt-4">
-      <div class="my__card">
-        <div class="card__header">
-          <img class="d-block w-100" src="./assets/images/mac1.webp" alt="">
-        </div>
-        <div class="card__body">
-          <div class="product__price">
-            <p class="product__price--now">32.000.000 đ</p>
-            <p class="product__price--discount">
-              <span class="price--discount">35.000.000 đ</span>
-              <span>2 ngày 20h : 34p : 33</span>
-            </p>
-          </div>
-          <div class="product__title">
-            <p>MacBook Pro 13 inch M2 2022</p>
-          </div>
-          <div class="product__configuration">
-            <div class="product__propertie">
-              <i class="fa-solid fa-laptop-code"></i>
-              <span>13.3 inch</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-microchip"></i>
-              <span>M1 pro</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-microchip"></i>
-              <span>Apple M1</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-memory"></i>
-              <span>32Gb</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-weight-hanging"></i>
-              <span>1.29 kg</span>
-            </div>
-          </div>
-        </div>
-        <div class="card__footer">
-          <button routerLink="/product-detail" class="product__pay">Mua Ngay</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 mt-4">
-      <div class="my__card">
-        <div class="card__header">
-          <img class="d-block w-100" src="./assets/images/mac1.webp" alt="">
-        </div>
-        <div class="card__body">
-          <div class="product__price">
-            <p class="product__price--now">32.000.000 đ</p>
-            <p class="product__price--discount">
-              <span class="price--discount">35.000.000 đ</span>
-              <span>2 ngày 20h : 34p : 33</span>
-            </p>
-          </div>
-          <div class="product__title">
-            <p>MacBook Pro 13 inch M2 2022</p>
-          </div>
-          <div class="product__configuration">
-            <div class="product__propertie">
-              <i class="fa-solid fa-laptop-code"></i>
-              <span>13.3 inch</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-microchip"></i>
-              <span>M1 pro</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-microchip"></i>
-              <span>Apple M1</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-memory"></i>
-              <span>32Gb</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-weight-hanging"></i>
-              <span>1.29 kg</span>
-            </div>
-          </div>
-        </div>
-        <div class="card__footer">
-          <button routerLink="/product-detail" class="product__pay">Mua Ngay</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 mt-4">
-      <div class="my__card">
-        <div class="card__header">
-          <img class="d-block w-100" src="./assets/images/mac1.webp" alt="">
-        </div>
-        <div class="card__body">
-          <div class="product__price">
-            <p class="product__price--now">32.000.000 đ</p>
-            <p class="product__price--discount">
-              <span class="price--discount">35.000.000 đ</span>
-              <span>2 ngày 20h : 34p : 33</span>
-            </p>
-          </div>
-          <div class="product__title">
-            <p>MacBook Pro 13 inch M2 2022</p>
-          </div>
-          <div class="product__configuration">
-            <div class="product__propertie">
-              <i class="fa-solid fa-laptop-code"></i>
-              <span>13.3 inch</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-microchip"></i>
-              <span>M1 pro</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-microchip"></i>
-              <span>Apple M1</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-memory"></i>
-              <span>32Gb</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-weight-hanging"></i>
-              <span>1.29 kg</span>
-            </div>
-          </div>
-        </div>
-        <div class="card__footer">
-          <button routerLink="/product-detail" class="product__pay">Mua Ngay</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 mt-4">
-      <div class="my__card">
-        <div class="card__header">
-          <img class="d-block w-100" src="./assets/images/mac1.webp" alt="">
-        </div>
-        <div class="card__body">
-          <div class="product__price">
-            <p class="product__price--now">32.000.000 đ</p>
-            <p class="product__price--discount">
-              <span class="price--discount">35.000.000 đ</span>
-              <span>2 ngày 20h : 34p : 33</span>
-            </p>
-          </div>
-          <div class="product__title">
-            <p>MacBook Pro 13 inch M2 2022</p>
-          </div>
-          <div class="product__configuration">
-            <div class="product__propertie">
-              <i class="fa-solid fa-laptop-code"></i>
-              <span>13.3 inch</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-microchip"></i>
-              <span>M1 pro</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-microchip"></i>
-              <span>Apple M1</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-memory"></i>
-              <span>32Gb</span>
-            </div>
-            <div class="product__propertie">
-              <i class="fa-solid fa-weight-hanging"></i>
-              <span>1.29 kg</span>
+              <span>{{productGroup.weight}} kg</span>
             </div>
           </div>
         </div>

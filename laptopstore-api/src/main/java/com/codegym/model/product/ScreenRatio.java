@@ -1,11 +1,27 @@
 package com.codegym.model.product;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
 public class ScreenRatio {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Boolean isRemove;
     private String name;
+    @OneToMany(mappedBy = "screenRatio")
+    private Set<Product> products;
 
     public ScreenRatio() {
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 
     public Integer getId() {

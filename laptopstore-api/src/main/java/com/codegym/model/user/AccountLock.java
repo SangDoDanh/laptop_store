@@ -1,9 +1,16 @@
-package com.codegym.model.product;
+package com.codegym.model.user;
 
+import javax.persistence.*;
+
+@Entity
 public class AccountLock {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Boolean isRemove;
     private String reason;
+    @ManyToOne
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
 
     public AccountLock() {
