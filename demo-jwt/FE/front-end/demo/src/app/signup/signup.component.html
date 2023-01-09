@@ -1,0 +1,13 @@
+
+
+<form [formGroup]="rfSignUp" (ngSubmit)="signUp()">
+  <p>Username: <input type="text" formControlName="username"></p>
+
+  <p>Password: <input type="text" formControlName="password"></p>
+
+  <p>email: <input type="text" formControlName="email"></p>
+
+  <p>name: <input type="text" formControlName="name"></p>
+
+  <input type="submit" value="Đăng nhập">
+</form>

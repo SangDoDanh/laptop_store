@@ -1,0 +1,23 @@
+<h1>Header</h1>
+
+<div>
+  <div style="display: flex; justify-content: start">
+    <button><a routerLink="/home">Home</a></button>
+    <button *ngIf="checkLogin && accountRole == 'ROLE_ADMIN'"><a routerLink="/customer">User</a></button>
+    <button *ngIf="checkLogin"><a routerLink="/auction">Auction</a></button>
+  </div>
+
+  <div style="display: flex; justify-content: end">
+    <button *ngIf="!checkLogin"><a routerLink="/login">Login</a></button>
+    <h3 *ngIf="checkLogin">Xin chào bạn {{nameAccount}}</h3>
+    <button *ngIf="checkLogin" (click)="logOut()" style="color: red">Logout</button>
+  </div>
+</div>
+
+<hr>
+
+
+
+
+
+
