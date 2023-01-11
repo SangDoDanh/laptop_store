@@ -12,6 +12,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Boolean isRemove;
+    private String name;
     private String username;
     private String password;
 
@@ -27,6 +28,20 @@ public class Account {
     private Set<AccountLock> accountLocks;
 
     public Account() {
+    }
+
+    public Account(String name, String username, String encode) {
+        this.name = name;
+        this.username = username;
+        this.password = encode;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Set<AccountRole> getAccountRoles() {

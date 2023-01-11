@@ -12,12 +12,7 @@ import java.util.Optional;
 public interface IAccountRepository extends JpaRepository<Account, Integer> {
 
 
+    Optional<Account> findByUsername(String name);
 
-    @Query(
-            value = " select * " +
-                    " from account " +
-                    " where username = :username ",
-            nativeQuery = true
-    )
-    Account findAccountByUsername(@Param("username") String username);;
+    Boolean existsByUsername(String username);
 }

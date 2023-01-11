@@ -2,7 +2,7 @@ package com.codegym.config;
 
 import com.codegym.security.jwt.JwtEntryPoint;
 import com.codegym.security.jwt.JwtTokenFilter;
-import com.codegym.security.user_detail.MyUserDetailServiceImpl;
+import com.codegym.security.userprincal.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,72 +15,45 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
+    @Autowired
+    UserDetailService userDetailService;
     @Autowired
     private JwtEntryPoint jwtEntryPoint;
 
-    @Autowired
-    private MyUserDetailServiceImpl myUserDetailService;
+    @Bean
+    public JwtTokenFilter jwtTokenFilter() {
+        return  new JwtTokenFilter();
+    }
+    @Override
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder.userDetailsService(userDetailService).passwordEncoder(passwordEncoder());
+    }
 
     @Bean
-    public PasswordEncoder getPasswordEncoder() {
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public JwtTokenFilter jwtTokenFilter() {
-        return new JwtTokenFilter();
+    @Override
+    public AuthenticationManager authenticationManager() throws Exception{
+        return  super.authenticationManager();
     }
 
-    @Bean
     @Override
-    protected AuthenticationManager authenticationManager() throws Exception {
-        return super.authenticationManager();
-    }
-
-    /**
-     * Created by DucDH,
-     * Date Created: 13/12/2022
-     * Function: to configure the mechanism of Authentication
-     * @param auth
-     * @throws Exception
-     */
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(myUserDetailService).passwordEncoder(getPasswordEncoder());
-    }
-
-    /**
-     * Created by DucDH,
-     * Date Created: 13/12/2022
-     * Function: to configure the mechanism of Authorization and WebSecurity
-     * @param http
-     * @throws Exception
-     */
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-
-
-                .and().cors()
-                .and()
-//                .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)
-//                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-//        http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+    protected void configure(HttpSecurity httpSecurity) throws Exception{
+        httpSecurity.cors().and().csrf().disable()
+                .authorizeRequests().antMatchers("**").permitAll()
+                .anyRequest().authenticated()
+                .and().exceptionHandling()
+                .authenticationEntryPoint(jwtEntryPoint).and().
+                sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        httpSecurity.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

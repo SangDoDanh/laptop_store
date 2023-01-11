@@ -10,31 +10,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
 @Component
 public class JwtEntryPoint implements AuthenticationEntryPoint {
-
-    private static final Logger logger = LoggerFactory.getLogger(JwtEntryPoint.class);
-
-    /**
-     * Created by DucDH,
-     * Date Created: 13/12/2022
-     * Function: to prevent an Unauthenticated request
-     * @param request
-     * @param response
-     * @param authException
-     * @throws IOException
-     * @throws ServletException
-     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(JwtEntryPoint.class);
 
     @Override
-    public void commence(HttpServletRequest request,
-                         HttpServletResponse response,
-                         AuthenticationException authException) throws IOException, ServletException {
-
-        logger.error("Unauthorized error Message {}", authException.getMessage());
-
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error -> Unauthorized");
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        LOGGER.error("UnAuthorized error Maessage", authException.getMessage());
+        response.sendError(HttpServletResponse.SC_ACCEPTED, "Error -> UnAuthorized");
     }
-
 }

@@ -1,12 +1,12 @@
 package com.codegym.security.jwt;
 
-import com.project.security.user_detail.MyUserDetail;
-import com.project.security.user_detail.MyUserDetailServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -16,73 +16,37 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
 public class JwtTokenFilter extends OncePerRequestFilter {
-
-    @Autowired
-    private MyUserDetailServiceImpl userDetailService;
+    private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenFilter.class);
 
     @Autowired
     private JwtProvider jwtProvider;
 
-    private static final Logger logger = LoggerFactory.getLogger(JwtTokenFilter.class);
-
-    /**
-     * Created by DucDH,
-     * Date Created: 13/12/2022
-     * Function: to get token from request
-     * @param request
-     * @return a token if request's header is valid
-     * @return null if request's header is invalid
-     */
-
-    public String getToken(HttpServletRequest request) {
-        String authHeader = request.getHeader("Authorization");
-
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            return authHeader.replace("Bearer ", "");
-        }
-
-        return null;
-    }
-
-    /**
-     * Created by DucDH,
-     * Date Created: 13/12/2022
-     * Function: to check if the token is still valid or not
-     * @param request
-     * @param response
-     * @param filterChain
-     * @throws ServletException
-     * @throws IOException
-     */
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
-
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            String token = getToken(request);
-
-            if (token != null && jwtProvider.validateToken(token)) {
-
-                String username = jwtProvider.getUsernameFromToken(token);
-
-                MyUserDetail myUserDetail = (MyUserDetail) userDetailService.loadUserByUsername(username);
-
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(myUserDetail,
-                        null, myUserDetail.getAuthorities());
-
+            String token = getJwt(request);
+            if(token != null && jwtProvider.validateToken(token)) {
+                String username = jwtProvider.getUserNameFromToken(token);
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-
             }
-        } catch (Exception e) {
-            logger.error("Can't set user authentication -> Message: {}", e);
+        } catch (Exception e){
+            LOGGER.error("can not set user authentication ", e);
         }
-
         filterChain.doFilter(request, response);
+    }
+
+    private String getJwt(HttpServletRequest request) {
+        String authHeader = request.getHeader("Authorization");
+        if(authHeader != null && authHeader.startsWith("Bearer")) {
+            return  authHeader.replace("Bearer", "");
+        }
+        return  null;
     }
 }

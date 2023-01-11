@@ -1,5 +1,5 @@
 <div class="aap__login">
-  <form action="" class="login__form">
+  <form action="" class="login__form" [formGroup]="rfLogin" (ngSubmit)="login()">
     <div class="login__header">
       <!-- <h3 class="text-center login__heading">Đăng Nhập</h3> -->
       <p class="text-center mt-4">
@@ -9,11 +9,11 @@
     <div class="login__body w-100">
       <div class="input__group">
         <label for="login__user">Tài khoản</label>
-        <input type="text" id="login__user" placeholder="Nhập tài khoản hoặc email">
+        <input formControlName="username" type="text" id="login__user" placeholder="Nhập tài khoản hoặc email">
       </div>
       <div class="input__group">
         <label for="login__Password">Mật khẩu</label>
-        <input type="password" id="login__Password" placeholder="Nhập mật khẩu">
+        <input formControlName="password" type="password" id="login__Password" placeholder="Nhập mật khẩu">
       </div>
       <div class="login__remember">
         <span><span class="sign__up">Đăng ký</span> nếu bạn chưa có tài khoản.</span>

@@ -7,7 +7,8 @@ export const environment = {
   API_URL: 'http://localhost:8080',
   PRODUCT_GROUPS: '/api/v1/product-groups',
   PRODUCT_GROUP_DETAIL: '/api/v1/product-groups/detail/',
-  SIZE_INCH: '/api/v1/size-inch'
+  SIZE_INCH: '/api/v1/size-inch',
+  AUTH_LOGIN: '/api/auth/signin'
 };
 
 /*

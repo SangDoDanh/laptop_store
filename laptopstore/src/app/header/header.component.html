@@ -33,7 +33,7 @@
     <div class="login">
       <div class="account__info">
         <p class="note hello">Xin chào</p>
-        <p>Đỗ Danh Sáng</p>
+        <p *ngIf="checkLogin">{{nameLogin}}</p>
       </div>
       <div class="account__avatar">
         <img class="d-block" src="./assets/images/ava1.jpg" alt="">
@@ -53,5 +53,8 @@
         </div>
       </div>
     </div>
+  </div>
+  <div *ngIf="!checkLogin">
+    <button routerLink="login">Đăng nhập</button>
   </div>
 </header>
