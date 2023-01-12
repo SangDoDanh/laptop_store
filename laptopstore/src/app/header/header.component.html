@@ -26,7 +26,7 @@
       </a>
     </li>
   </ul>
-  <div class="menu__user d-flex">
+  <div class="menu__user d-flex" *ngIf="checkLogin">
     <div class="cart mx-4">
       <p routerLink="/cart"><i class="fa-brands fa-shopify"></i></p>
     </div>
@@ -47,7 +47,7 @@
               <p class="menu__ex__link">Lịch sử mua hàng</p>
             </li>
             <li class="menu__ex__item">
-              <p class="menu__ex__link">Đăng xuất</p>
+              <p (click)="logout()" class="menu__ex__link">Đăng xuất</p>
             </li>
           </ul>
         </div>
@@ -55,6 +55,6 @@
     </div>
   </div>
   <div *ngIf="!checkLogin">
-    <button routerLink="login">Đăng nhập</button>
+    <button routerLink="login" class="btn__login">Đăng nhập</button>
   </div>
 </header>

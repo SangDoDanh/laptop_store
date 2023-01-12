@@ -116,9 +116,15 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.createToken(authentication);
         USerPrinciple uSerPrinciple = (USerPrinciple) authentication.getPrincipal();
-        return  ResponseEntity.ok(new JwtResponse(token,
-                uSerPrinciple.getName(),
-                uSerPrinciple.getAuthorities()));
+        JwtResponse jwtResponse = new JwtResponse();
+        jwtResponse.setId(uSerPrinciple.getId());
+        jwtResponse.setName(uSerPrinciple.getName());
+        jwtResponse.setRoles(uSerPrinciple.getAuthorities());
+        jwtResponse.setToken(token);
+//        return  ResponseEntity.ok(new JwtResponse(token,
+//                uSerPrinciple.getName(),
+//                uSerPrinciple.getAuthorities()));
+        return ResponseEntity.ok(jwtResponse);
 
     }
 }

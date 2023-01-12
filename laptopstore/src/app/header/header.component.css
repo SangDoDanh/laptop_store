@@ -137,3 +137,13 @@ header {
   right: 12px;
   z-index: 10;
 }
+
+.btn__login {
+  padding: 4px 8px;
+  color: white;
+  background: #ec008c;
+  background: -webkit-linear-gradient(to right, #fc6767, #ec008c);
+  background: linear-gradient(to right, #fc6767, #ec008c);
+  border-radius: 25px;
+  border: 2px solid white;
+}

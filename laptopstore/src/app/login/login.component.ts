@@ -32,7 +32,9 @@ export class LoginComponent implements OnInit {
         this.tokenService.setToken(data.token);
         this.tokenService.setName(data.name);
         this.tokenService.setRoles(data.roles);
-        this.router.navigate(['']);
+        this.router.navigate(['']).then(()=> {
+          window.location.reload();
+        });
       }
       if (data.status == 202) {
         console.log('login fail!');
