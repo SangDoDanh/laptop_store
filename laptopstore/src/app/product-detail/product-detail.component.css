@@ -86,6 +86,9 @@ h6 {
   color: #7f8c8d;
   font-size: 14px;
 }
+.product__propertie .product__propertie--title i {
+  margin-right: 8px;
+}
 
 .product__propertie--title {
   margin-bottom: 4px;
@@ -100,12 +103,13 @@ h6 {
 
 .security {
   width: 100%;
+  padding: 4px;
 }
 
 .security p {
   color: #7f8c8d;
   font-size: 14px;
-  padding: 0 24px;
+  padding: 0 28px;
 }
 .security--title {
   padding: 0 12px;
@@ -113,7 +117,7 @@ h6 {
   display: inline-block;
   background-color: #edfae3;
   color: #02f975;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .product__colors {

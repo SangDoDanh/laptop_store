@@ -48,13 +48,35 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  alo(id: number) {
+  alo(id: number, isCheckedAll: any) {
+    if (isCheckedAll.checked) {
+      isCheckedAll.checked = false;
+      this.sizeInchValues = [];
+    }
     if (this.rfSearch.value.inchSearch && this.sizeInchValues.indexOf(id) === -1) {
       this.sizeInchValues.push(id);
     }
     if (!this.rfSearch.value.inchSearch && this.sizeInchValues.indexOf(id) > -1) {
       this.sizeInchValues.splice(this.sizeInchValues.indexOf(id), 1);
     }
-    console.log(this.sizeInchValues);
+    console.log('size selected all: ', this.sizeInchValues);
+  }
+
+  checkSizeAll(checkAllInput: any) {
+    const isChecked = checkAllInput.target.checked;
+    if (isChecked) {
+      document.querySelectorAll('.check__sizeInch').forEach((value: any) => {
+        if (value.checked) {
+          value.checked = false;
+        }
+      });
+      this.sizeInchValues = [];
+      this.sizeInchList.forEach(value => {
+        this.sizeInchValues.push(value.id);
+      });
+    } else {
+      this.sizeInchValues = [];
+    }
+    console.log('size selected: ', this.sizeInchValues);
   }
 }

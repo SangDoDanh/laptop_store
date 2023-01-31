@@ -1,5 +1,6 @@
 package com.codegym.controller.product;
 
+import com.codegym.dto.ProductDto;
 import com.codegym.dto.ProductGroupDto;
 import com.codegym.dto.ProductGroupDetailDto;
 import com.codegym.service.product.IProductGroupService;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
@@ -39,5 +41,11 @@ public class ProductGroupRestController {
     public ResponseEntity<ProductGroupDetailDto> getAllDetail(@PathVariable Integer id) {
         ProductGroupDetailDto productGroupDetailDtos = productGroupService.getAllDetail(id);
         return new ResponseEntity<>(productGroupDetailDtos, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDto> getProductById(@PathVariable Integer id) {
+        Optional<ProductDto> productDto = productGroupService.getProductById(id);
+        return new ResponseEntity<>(productDto.get(), HttpStatus.OK);
     }
 }

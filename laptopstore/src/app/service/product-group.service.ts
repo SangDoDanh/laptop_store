@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {ProductGroupDto} from '../dto/product-group-dto';
 import {environment} from '../../environments/environment';
 import {ProductGroupDetailDto} from '../dto/product-group-detail-dto';
+import {ProductDto} from '../dto/product-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +19,9 @@ export class ProductGroupService {
 
   getDetail(productGroupId: number): Observable<ProductGroupDetailDto> {
     return this.httpClient.get<ProductGroupDetailDto>(environment.API_URL + environment.PRODUCT_GROUP_DETAIL + productGroupId);
+  }
+
+  getProductById(id: number): Observable<ProductDto> {
+    return this.httpClient.get<ProductDto>(environment.API_URL + environment.PRODUCT_GROUPS + '/' + id);
   }
 }

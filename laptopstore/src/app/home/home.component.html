@@ -53,13 +53,13 @@
           <div>
             <ul class="menu__search--size" *ngIf="sizeInchList">
               <li class="search__size--item active mt-1" >
-                <input type="checkbox" checked id="all-search-inch">
+                <input type="checkbox" checked id="all-search-inch" (change)="checkSizeAll($event)" #checkAll>
                 <label for=""  style="margin-left: 4px">
                   <span>Tất cả</span>
                 </label>
               </li>
               <li *ngFor="let sizeInch of sizeInchList, index as i" class="mt-1 search__size--item">
-                <input (change)="alo(sizeInch.id)" formControlName="inchSearch" id="inchSearch{{i}}" type="checkbox" [value]="sizeInch.id" name="size-inch">
+                <input (change)="alo(sizeInch.id, checkAll)" formControlName="inchSearch" id="inchSearch{{i}}" class="check__sizeInch" type="checkbox" [value]="sizeInch.id" name="size-inch">
                 <label for="inchSearch{{i}}" style="margin-left: 4px">
                   <span>{{sizeInch.name}} inch</span>
                 </label>
@@ -85,7 +85,7 @@
             </p>
           </div>
           <div class="product__title">
-            <p  routerLink="/product-detail">{{productGroup.name}}</p>
+            <p  [routerLink] = "['/product-detail', productGroup.id]">{{productGroup.name}}</p>
           </div>
           <div class="product__configuration">
             <div class="product__propertie">

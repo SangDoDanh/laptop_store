@@ -3,24 +3,12 @@
     <div class="col-lg-8">
       <div class="images">
         <ul class="images__list">
-          <li class="images__item active">
-            <img class="images__img" src="./assets/images/mac1.webp" alt="">
-          </li>
-          <li class="images__item">
-            <img class="images__img" src="./assets/images/mac2.webp" alt="">
-          </li>
-          <li class="images__item">
-            <img class="images__img" src="./assets/images/mac3.webp" alt="">
-          </li>
-          <li class="images__item">
-            <img class="images__img" src="./assets/images/map4.webp" alt="">
-          </li>
-          <li class="images__item">
-            <img class="images__img" src="./assets/images/mac5.webp" alt="">
+          <li class="images__item" *ngFor="let url of ulrImgs, index as i" (click)="changImg(i)">
+            <img src="{{url}}" class="images__img">
           </li>
         </ul>
         <div class="show__image">
-          <img src="./assets/images/mac1.webp" alt="">
+          <img src="{{urlShow}}" alt="">
         </div>
       </div>
       <div class="product__configuration">
@@ -95,13 +83,14 @@
       </div>
     </div>
     <div class="col-lg-4">
-      <div class="security mb-4 w-100">
-        <div class="security--title security">
+      <div class=" w-100">
+        <div class="security--title security" style="padding: 4px">
           <i class="fa-solid fa-shield"></i>
           <span class="security--title">Bảo hành</span>
+          <p>Bảo hành <span class="color__primary">12</span> tháng tại <span class="color__primary">Moki Tech</span></p>
+          <p>Đổi mới trong <span class="color__primary">15</span> ngày đầu tiên</p>
         </div>
-        <p>Bảo hành 12 tháng tại <span class="color__primary">Moki Tech</span></p>
-        <p>Đổi mới trong 15 ngày đầu tiên</p>
+
       </div>
       <div class="product__detail--name mb-2">
         <p class="color__dark x-2">MacBook Pro 13 inch M2 2022</p>
