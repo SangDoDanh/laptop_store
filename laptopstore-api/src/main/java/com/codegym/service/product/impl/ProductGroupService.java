@@ -1,5 +1,6 @@
 package com.codegym.service.product.impl;
 
+import com.codegym.dto.SearchDto;
 import com.codegym.dto.ProductDto;
 import com.codegym.dto.ProductGroupDetailDto;
 import com.codegym.dto.ProductGroupDto;
@@ -35,5 +36,10 @@ public class ProductGroupService implements IProductGroupService {
     @Override
     public Optional<ProductDto> getProductById(Integer id) {
         return productGroupRepository.getProductById(id);
+    }
+
+    @Override
+    public List<ProductGroupDto> search(SearchDto searchDto) {
+        return productGroupRepository.search(searchDto);
     }
 }

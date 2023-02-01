@@ -1,9 +1,12 @@
 <div class="container mt-4">
   <div class="row">
     <div class="col-lg-12">
-      <form class="form__search" *ngIf="rfSearch" [formGroup]="rfSearch">
+      <form class="form__search" *ngIf="rfSearch" [formGroup]="rfSearch" (ngSubmit)="search()">
         <ul class="menu__search--logo">
           <li class="menu__search--item active">
+            <p class="menu__search--link">Tất cả</p>
+          </li>
+          <li class="menu__search--item">
             <img class="menu__search--link" src="./assets/images/logo-macbook-149x40.png" alt="">
           </li>
           <li class="menu__search--item">
@@ -34,32 +37,31 @@
         <div class="d-flex flex-wrap w-50">
           <div class="w-50 search__group">
             <input formControlName="nameSearch" type="text" class="input__search w-100 mb-3" placeholder="Bạn muốn tìm gì?">
-            <button type="button" class="btn-search">
+            <button type="submit" class="btn-search">
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>
           </div>
           <div class="w-50 search__group">
-            <select formControlName="priceSearch" name="" id="" class="w-100 mb-3 select__search">
-              <option [value]="''">--Chọn mức giá--</option>
-              <option [value]="0">Tất cả</option>
-              <option [value]="10">Dưới 10 triệu</option>
-              <option [value]="15">Từ 10 đến 15 triệu</option>
-              <option [value]="20">Từ 15 đến 20 triệu</option>
-              <option [value]="25">Từ 20 đến 25 triệu</option>
-              <option [value]="35">Từ 25 đến 35 triệu</option>
-              <option [value]="36">Trên 35 triệu</option>
+            <select formControlName="priceSearch" name="" id="" class="w-100 mb-3 select__search" (change)="search()">
+              <option [value]="'0,300000000'">Tất cả mức giá</option>
+              <option [value]="'0,10000000'">Dưới 10 triệu</option>
+              <option [value]="'10000000,15000000'">Từ 10 đến 15 triệu</option>
+              <option [value]="'15000000,20000000'">Từ 15 đến 20 triệu</option>
+              <option [value]="'20000000,25000000'">Từ 20 đến 25 triệu</option>
+              <option [value]="'25000000,35000000'">Từ 25 đến 35 triệu</option>
+              <option [value]="'35000000,300000000'">Trên 35 triệu</option>
             </select>
           </div>
           <div>
             <ul class="menu__search--size" *ngIf="sizeInchList">
               <li class="search__size--item active mt-1" >
-                <input type="checkbox" checked id="all-search-inch" (change)="checkSizeAll($event)" #checkAll>
-                <label for=""  style="margin-left: 4px">
+                <input [disabled]="checkAll.checked" type="checkbox" checked id="all-search-inch" (change)="checkSizeAll($event)" #checkAll>
+                <label for="all-search-inch"  style="margin-left: 4px">
                   <span>Tất cả</span>
                 </label>
               </li>
-              <li *ngFor="let sizeInch of sizeInchList, index as i" class="mt-1 search__size--item">
-                <input (change)="alo(sizeInch.id, checkAll)" formControlName="inchSearch" id="inchSearch{{i}}" class="check__sizeInch" type="checkbox" [value]="sizeInch.id" name="size-inch">
+              <li *ngFor="let sizeInch of sizeInchList, index as i" class="mt-1 search__size--item search__size--item{{i}}">
+                <input (change)="alo(sizeInch.id, checkAll, i)" formControlName="inchSearch" id="inchSearch{{i}}" class="check__sizeInch" type="checkbox" [value]="sizeInch.id" name="size-inch">
                 <label for="inchSearch{{i}}" style="margin-left: 4px">
                   <span>{{sizeInch.name}} inch</span>
                 </label>
@@ -116,7 +118,7 @@
       </div>
     </div>
     <div class=" mt-4 mb-4 d-flex justify-content-center col-lg-12">
-      <button class="view__more">Xem thêm</button>
+      <button hidden class="view__more">Xem thêm</button>
     </div>
   </div>
 </div>

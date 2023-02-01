@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProductGroupDto} from '../dto/product-group-dto';
 import {ProductGroupService} from '../service/product-group.service';
 import {ProductGroupDetailDto} from '../dto/product-group-detail-dto';
@@ -12,6 +12,7 @@ import {SizeInchService} from '../service/size-inch.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  isCheckedSizeInchAll = true;
   productGroups: ProductGroupDto[];
   productGroupDetail: ProductGroupDetailDto[] = [];
   rfSearch: FormGroup;
@@ -20,7 +21,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private productGroupService: ProductGroupService,
               private formBuilder: FormBuilder,
-              private sizeInchService: SizeInchService) { }
+              private sizeInchService: SizeInchService) {
+  }
 
   ngOnInit(): void {
     this.sizeInchService.getAll().subscribe(data => {
@@ -30,7 +32,7 @@ export class HomeComponent implements OnInit {
     this.rfSearch = this.formBuilder.group({
       producer: [''],
       nameSearch: [''],
-      priceSearch: [''],
+      priceSearch: ['0,300000000'],
       inchSearch: [],
     });
     this.productGroupService.getAll().subscribe(data => {
@@ -41,28 +43,37 @@ export class HomeComponent implements OnInit {
       data.forEach(value => {
         this.productGroupService.getDetail(value.id).subscribe(productDetail => {
           this.productGroupDetail.push(productDetail);
-          console.log(this.productGroupDetail);
 
         });
       });
     });
   }
 
-  alo(id: number, isCheckedAll: any) {
-    if (isCheckedAll.checked) {
-      isCheckedAll.checked = false;
+  alo(id: number, isCheckedAll: any, indexCheck: any) {
+    if (this.checkedSizeInch(indexCheck)) {
+      isCheckedAll.checked = true;
       this.sizeInchValues = [];
+      this.sizeInchList.forEach(value => {
+        this.sizeInchValues.push(value.id);
+      });
+    } else {
+      if (isCheckedAll.checked) {
+        isCheckedAll.checked = false;
+        this.sizeInchValues = [];
+      }
+      if (this.rfSearch.value.inchSearch && this.sizeInchValues.indexOf(id) === -1) {
+        this.sizeInchValues.push(id);
+      }
+      if (!this.rfSearch.value.inchSearch && this.sizeInchValues.indexOf(id) > -1) {
+        this.sizeInchValues.splice(this.sizeInchValues.indexOf(id), 1);
+      }
     }
-    if (this.rfSearch.value.inchSearch && this.sizeInchValues.indexOf(id) === -1) {
-      this.sizeInchValues.push(id);
-    }
-    if (!this.rfSearch.value.inchSearch && this.sizeInchValues.indexOf(id) > -1) {
-      this.sizeInchValues.splice(this.sizeInchValues.indexOf(id), 1);
-    }
-    console.log('size selected all: ', this.sizeInchValues);
+    this.rfSearch.value.inchSearch = this.sizeInchValues;
+    this.search();
   }
 
   checkSizeAll(checkAllInput: any) {
+    console.log(this.rfSearch.value);
     const isChecked = checkAllInput.target.checked;
     if (isChecked) {
       document.querySelectorAll('.check__sizeInch').forEach((value: any) => {
@@ -77,6 +88,43 @@ export class HomeComponent implements OnInit {
     } else {
       this.sizeInchValues = [];
     }
-    console.log('size selected: ', this.sizeInchValues);
+    this.rfSearch.value.inchSearch = this.sizeInchValues;
+    this.search();
+  }
+
+  search() {
+    console.log(this.rfSearch.value.inchSearch);
+    console.log(this.rfSearch.value.priceSearch);
+
+    if (!this.rfSearch.value.inchSearch) {
+      this.sizeInchValues = [];
+      this.sizeInchList.forEach(value => {
+        this.sizeInchValues.push(value.id);
+      });
+      this.rfSearch.value.inchSearch = this.sizeInchValues;
+    } else {
+      this.rfSearch.value.inchSearch = this.sizeInchValues;
+    }
+    this.productGroupService.search(this.rfSearch.value).subscribe(data => {
+      this.productGroups = data;
+      this.productGroups.forEach(value => {
+        value.urlImgs = value.urlImgs.split(',')[0];
+      });
+      data.forEach(value => {
+        this.productGroupService.getDetail(value.id).subscribe(productDetail => {
+          this.productGroupDetail.push(productDetail);
+        });
+      });
+    });
+  }
+
+  checkedSizeInch(indexCheck: any): boolean {
+    this.isCheckedSizeInchAll = true;
+    document.querySelectorAll('.check__sizeInch').forEach((value: any) => {
+      if (value.checked) {
+        this.isCheckedSizeInchAll = false;
+      }
+    });
+    return this.isCheckedSizeInchAll;
   }
 }

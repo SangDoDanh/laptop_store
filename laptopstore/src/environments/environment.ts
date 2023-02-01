@@ -8,7 +8,8 @@ export const environment = {
   PRODUCT_GROUPS: '/api/v1/product-groups',
   PRODUCT_GROUP_DETAIL: '/api/v1/product-groups/detail/',
   SIZE_INCH: '/api/v1/size-inch',
-  AUTH_LOGIN: '/api/auth/signin'
+  AUTH_LOGIN: '/api/auth/signin',
+  PRODUCT_GROUPS_SEARCH: '/api/v1/product-groups/search'
 };
 
 /*

@@ -1,5 +1,6 @@
 package com.codegym.repository.product;
 
+import com.codegym.dto.SearchDto;
 import com.codegym.dto.ProductDto;
 import com.codegym.dto.ProductGroupDetailDto;
 import com.codegym.dto.ProductGroupDto;
@@ -40,4 +41,17 @@ public interface IProductGroupRepository extends JpaRepository<ProductGroup, Int
             "    join warranty w on p.warranty_id = w.id\n" +
             "where p.is_remove = false and p.id = :id", nativeQuery = true)
     Optional<ProductDto> getProductById(@Param("id") Integer id);
+
+    @Query(value = "select p.id, p.name, p.price, p.size, p.url_img as urlImgs, p.weight, c.name as categoryName, pc.name as producerName, si.name as inch, w.warranty_month as warrantyMonth\n" +
+            "from product_group p\n" +
+            "    join category c on c.id = p.category_id\n" +
+            "    join producer pc on p.producer_id = pc.id\n" +
+            "    join size_inch si on p.size_inch_id = si.id\n" +
+            "    join warranty w on p.warranty_id = w.id\n" +
+            "where p.is_remove = false " +
+            "    and p.name like %:#{#searchDto.nameSearch}% " +
+            "and si.id in :#{#searchDto.inchSearch} " +
+            "and (p.price BETWEEN :#{#searchDto.priceSearch.get(0)} and :#{#searchDto.priceSearch.get(1)}) "
+            , nativeQuery = true)
+    List<ProductGroupDto> search(@Param("searchDto") SearchDto searchDto);
 }

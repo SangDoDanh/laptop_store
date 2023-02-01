@@ -1,5 +1,6 @@
 package com.codegym.service.product;
 
+import com.codegym.dto.SearchDto;
 import com.codegym.dto.ProductDto;
 import com.codegym.dto.ProductGroupDetailDto;
 import com.codegym.dto.ProductGroupDto;
@@ -16,4 +17,6 @@ public interface IProductGroupService {
     ProductGroupDetailDto getAllDetail(Integer id);
 
     Optional<ProductDto> getProductById(Integer id);
+
+    List<ProductGroupDto> search(SearchDto searchDto);
 }

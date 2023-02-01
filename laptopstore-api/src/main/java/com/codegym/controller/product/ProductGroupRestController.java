@@ -1,5 +1,6 @@
 package com.codegym.controller.product;
 
+import com.codegym.dto.SearchDto;
 import com.codegym.dto.ProductDto;
 import com.codegym.dto.ProductGroupDto;
 import com.codegym.dto.ProductGroupDetailDto;
@@ -47,5 +48,11 @@ public class ProductGroupRestController {
     public ResponseEntity<ProductDto> getProductById(@PathVariable Integer id) {
         Optional<ProductDto> productDto = productGroupService.getProductById(id);
         return new ResponseEntity<>(productDto.get(), HttpStatus.OK);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<List<ProductGroupDto>> search(@RequestBody SearchDto searchDto) {
+        List<ProductGroupDto> productGroupDtos = productGroupService.search(searchDto);
+        return new ResponseEntity<>(productGroupDtos, HttpStatus.OK);
     }
 }
