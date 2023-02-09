@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 const TOKEN_KEY = 'token_key';
 const NAME_KEY = 'name_key';
 const ROLE_KEY = 'role_key';
+const ID_KEY = 'id_key';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,13 @@ export class TokenServiceService {
 
   constructor() { }
 
+  public getId(): string {
+    return localStorage.getItem(ID_KEY);
+  }
+  public setId(id: any) {
+    localStorage.removeItem(ID_KEY);
+    localStorage.setItem(ID_KEY, id);
+  }
   public setToken(token: string ) {
     localStorage.removeItem(TOKEN_KEY);
     localStorage.setItem(TOKEN_KEY, token);

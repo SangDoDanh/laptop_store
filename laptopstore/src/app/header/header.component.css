@@ -48,7 +48,17 @@ header {
 
 .cart i {
   font-size: 24px;
+
 }
+.cart:hover {
+  border-bottom: 2px solid white;
+  cursor: pointer;
+}
+.cart{
+  border-bottom: 2px solid transparent;
+
+}
+
 
 .hello {
   margin-bottom: -4px;
@@ -146,4 +156,22 @@ header {
   background: linear-gradient(to right, #fc6767, #ec008c);
   border-radius: 25px;
   border: 2px solid white;
+}
+
+.bag__box{
+  position: relative;
+  margin-right: 30px !important;
+}
+.bag__quality {
+  border: 1px solid #ec008c;
+  display: block;
+  position: absolute;
+  top: 12px;
+  right: -16px;
+  font-size: 11px;
+  padding: 0px 6px;
+  border-radius: 50%;
+  color: #ec008c;
+  background-color: white;
+  font-weight: bold;
 }

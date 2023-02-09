@@ -14,11 +14,20 @@ public class Ship {
     private String name;
     private Double fareSize;
     private Double fareWeight;
+    private String urlImage;
 
     @OneToMany(mappedBy = "ship")
     private Set<OrdersDetail> ordersDetails;
 
     public Ship() {
+    }
+
+    public String getUrlImage() {
+        return urlImage;
+    }
+
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
     }
 
     public Set<OrdersDetail> getOrdersDetails() {

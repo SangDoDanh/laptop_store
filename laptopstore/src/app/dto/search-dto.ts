@@ -1,5 +1,5 @@
 export interface SearchDto {
-   producer?: string;
+   producer?: string[];
    nameSearch?: string;
    priceSearch?: string[];
    inchSearch?: string[];

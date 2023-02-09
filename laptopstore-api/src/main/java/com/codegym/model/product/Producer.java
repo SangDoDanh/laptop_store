@@ -23,7 +23,27 @@ public class Producer {
     @OneToMany(mappedBy = "producer")
     private Set<LapMemory> lapMemories;
 
+    private Boolean isLaptop = false;
+    public String imgUrl;
+
     public Producer() {
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public Boolean getLaptop() {
+        return isLaptop;
+    }
+
+
+    public void setLaptop(Boolean laptop) {
+        isLaptop = laptop;
     }
 
     public Set<LapMemory> getLapMemories() {

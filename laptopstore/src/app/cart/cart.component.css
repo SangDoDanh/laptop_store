@@ -43,12 +43,16 @@ h6 {
 
 .cart__detail .product__price, .cart__total__price {
   color: #ec008c;
+  font-size: 18px;
 }
 
 .quality__plus, .quality__minus {
   border: none;
   font-size: 16px;
+  padding:6px 8px;
+  border-radius: 3px;
   color: #7f8c8d;
+  transition: color, 0.4s;
 }
 
 .quality__plus:hover, .quality__minus:hover {
@@ -131,8 +135,13 @@ h6 {
 .product__colors {
   margin-top: 8px;
   display: flex;
-  justify-content: left;
-  align-items: center;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+}
+.product__colors p {
+  font-size: 12px;
+  color: #181818;
 }
 .product__color {
   display: block;
@@ -143,7 +152,10 @@ h6 {
   margin-right: 8px;
   cursor: pointer;
 }
-
+p{
+  margin: 0;
+  padding: 0;
+}
 .product__color:hover {
   border: 1.5px solid #ec008c;
 
@@ -215,8 +227,8 @@ h6 {
 }
 .ship__list img {
   display: block;
-  width: 100px;
-  height: 60px;
+  width: 80px;
+  height: 50px;
   border: 2px solid transparent;
 }
 
@@ -254,5 +266,38 @@ h6 {
 .link {
   color: #ec008c;
   text-decoration: underline;
+  cursor: pointer;
 }
 
+.my__pay {
+  position: relative;
+}
+
+.hidden {
+  display: none;
+}
+#myPaypalButtons {
+  position: absolute;
+  top: 62px;
+  right: 0;
+}
+
+.btn-delete {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 3px 12px;
+  background: #ec008c;
+  background: -webkit-linear-gradient(to right, #fc6767, #ec008c);
+  background: linear-gradient(to right, #fc6767, #ec008c);
+  color: white;
+}
+.product__name {
+  transition: color, 0.4s;
+}
+.product__name:hover {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #ec008c;
+}

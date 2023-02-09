@@ -1,0 +1,48 @@
+<div class="cart mt-4 mb-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <p class="link" routerLink="/home">Tiếp tục mua sắm</p>
+        <h3 class="text-center mb-3 title_history">Lịch sử mua hàng</h3>
+      </div>
+      <div class="col-lg-12 cart__list" *ngIf="productCartDtos">
+        <div *ngFor="let productCart of productCartDtos, index as i" class="row cart__item">
+          <div class="col-lg-2 cart__item--img">
+            <img class="d-block w-75" src="{{productCart.urlImgs}}" alt="">
+          </div>
+          <div class="col-lg-5 cart__detail">
+            <p class="product__name" [routerLink] = "['/product-detail', productCart.productGroupId]">
+              # {{productCart.name}}
+            </p>
+            <p class="product__price mt-3">
+              {{productCart.price * (100- productCart.discountVal)/100 |number}} <sup>đ</sup>
+              <span class="product__price" style="text-decoration: line-through; color: #000000; margin-left: 12px; font-size: 16px">
+                {{productCart.price | number}} <sup>đ</sup>
+              </span>
+            </p>
+            <div class="product__colors">
+              <p>Màu sắc: {{productCart.color}}</p>
+              <p>
+                <span>CPU: {{productCart.cpu}}</span>
+                <span style="margin-left: 12px">Ram: {{productCart.ram}}GB</span>
+              </p>
+              <p>Memory: {{productCart.ssdVal}} SSD, {{productCart.memory}} {{productCart.memtype}}</p>
+            </div>
+          </div>
+          <div class="col-lg-5 cart__item--price">
+            <p>Số lượng: <span class="color__primary">{{productCart.quality}}</span></p>
+            <p>Ngày mua: {{productCart.ordersDay | date: 'dd/MM/yyyy'}}</p>
+            <p class="cart__total__price">
+              <span style="font-size: 14px; color: #7f8c8d">Thành tiền:</span>
+              {{(productCart.price * (100- productCart.discountVal)/100) * productCart.quality | number}} <sup>đ</sup>
+              <span style="font-size: 14px; color: #07acb9"> | (Chưa bao gồm phí ship)</span>
+            </p>
+            <p>
+            </p>
+            <p>Địa chỉ giao hàng: {{productCart.locationShip}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

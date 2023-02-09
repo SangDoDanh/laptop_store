@@ -27,8 +27,9 @@
     </li>
   </ul>
   <div class="menu__user d-flex" *ngIf="checkLogin">
-    <div class="cart mx-4">
+    <div class="cart mx-4 bag__box">
       <p routerLink="/cart"><i class="fa-brands fa-shopify"></i></p>
+      <span class="bag__quality">1</span>
     </div>
     <div class="login">
       <div class="account__info">
@@ -41,10 +42,10 @@
           <i class="connect fa-solid fa-caret-up"></i>
           <ul class="menu__ex">
             <li class="menu__ex__item">
-              <p class="menu__ex__link">Thông tin cá nhân</p>
+              <p routerLink="/profile" class="menu__ex__link">Thông tin cá nhân</p>
             </li>
             <li class="menu__ex__item">
-              <p class="menu__ex__link">Lịch sử mua hàng</p>
+              <p routerLink="/history" class="menu__ex__link">Lịch sử mua hàng</p>
             </li>
             <li class="menu__ex__item">
               <p (click)="logout()" class="menu__ex__link">Đăng xuất</p>

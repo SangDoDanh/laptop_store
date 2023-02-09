@@ -3,7 +3,7 @@
     <div class="col-lg-8">
       <div class="images">
         <ul class="images__list">
-          <li class="images__item" *ngFor="let url of ulrImgs, index as i" (click)="changImg(i)">
+          <li [ngClass]="i == 0 ? 'active': ''" class="images__item images__item{{i}}" *ngFor="let url of ulrImgs, index as i" (click)="changImg(i)">
             <img src="{{url}}" class="images__img">
           </li>
         </ul>
@@ -11,7 +11,7 @@
           <img src="{{urlShow}}" alt="">
         </div>
       </div>
-      <div class="product__configuration">
+      <div class="product__configuration" *ngIf="productDetailSelected && product">
         <p class="color__primary x-2">
           Cấu hình & đặc điểm
         </p>
@@ -21,35 +21,49 @@
               <i class="fa-solid fa-laptop-code"></i>
               <span class="product__detail--title">Màn hình</span>
             </div>
-            <p>13.3", 3200 x 2100 px, IPS, 100% sRGB, 120 Hz</p>
+            <p>{{product.inch}}" inch - {{productDetailSelected.resolName}},
+              {{productDetailSelected.resolVal}} px,
+              {{productDetailSelected.display}}, 120 Hz, Ratio: {{productDetailSelected.ratio}}</p>
           </div>
           <div class="product__propertie">
             <div class="product__propertie--title">
               <i class="fa-solid fa-microchip"></i>
               <span class="product__detail--title">Vi xử lý (CPU)</span>
             </div>
-            <p>Apple M1 10 nhân</p>
+            <p>{{productDetailSelected.cpu}} -
+              {{productDetailSelected.qualityCoreCpu}} core,
+              {{productDetailSelected.qualityThreadCpu}} thread
+            </p>
           </div>
           <div class="product__propertie">
             <div class="product__propertie--title">
               <i class="fa-solid fa-microchip"></i>
               <span class="product__detail--title">Dồ Họa</span>
             </div>
-            <p>Apple M1, 12 nhân</p>
+            <p>{{productDetailSelected.gpu}} -
+              {{productDetailSelected.qualityCoreGpu}} core
+            </p>
           </div>
           <div class="product__propertie">
             <div class="product__propertie--title">
               <i class="fa-solid fa-memory"></i>
               <span class="product__detail--title">Ram</span>
             </div>
-            <p>32GB - Hãng không công bố thông số</p>
+            <p>{{productDetailSelected.ram}} GB - Hãng không công bố thông số</p>
+          </div>
+          <div class="product__propertie">
+            <div class="product__propertie--title">
+              <i class="fa-solid fa-palette"></i>
+              <span class="product__detail--title">Màu sắc</span>
+            </div>
+            <p>{{productDetailSelected.color}}</p>
           </div>
           <div class="product__propertie">
             <div class="product__propertie--title">
               <i class="fa-solid fa-weight-hanging"></i>
               <span class="product__detail--title">Trọng lượng</span>
             </div>
-            <p>1.29 kg</p>
+            <p>{{product.weight}} kg</p>
           </div>
           <div class="product__propertie">
             <div class="product__propertie--title">
@@ -63,7 +77,7 @@
               <i class="fa-solid fa-server"></i>
               <span class="product__detail--title">Dung lượng</span>
             </div>
-            <p>500Gb SSD</p>
+            <p>{{productDetailSelected.ssd}} SSD - {{productDetailSelected.hhd}} HDD</p>
           </div>
           <div class="product__propertie">
             <div class="product__propertie--title">
@@ -75,7 +89,8 @@
 
         </div>
         <div class="mt-4 mb-4">
-          <p class="text-center color__primary view__detail">Xem cấu hình chi tiết <span><i class="fa-solid fa-angles-right"></i></span></p>
+          <p class="text-center color__primary view__detail">Xem cấu hình chi tiết <span><i
+            class="fa-solid fa-angles-right"></i></span></p>
         </div>
         <div class="mt-4 mb-4">
           <p class="color__primary view__detail x-2">Mô tả sản phẩm</p>
@@ -87,104 +102,56 @@
         <div class="security--title security" style="padding: 4px">
           <i class="fa-solid fa-shield"></i>
           <span class="security--title">Bảo hành</span>
-          <p>Bảo hành <span class="color__primary">12</span> tháng tại <span class="color__primary">Moki Tech</span></p>
+          <p>Bảo hành <span class="color__primary">{{product?.warrantyMonth}}</span> tháng tại <span class="color__primary">Moki Tech</span></p>
           <p>Đổi mới trong <span class="color__primary">15</span> ngày đầu tiên</p>
         </div>
 
       </div>
       <div class="product__detail--name mb-2">
-        <p class="color__dark x-2">MacBook Pro 13 inch M2 2022</p>
-      </div>
-      <div class="product__detail--price mb-4">
-        <p class="color__primary x-2">32.000.000 đ</p>
-      </div>
-      <div class="product__detail--color mb-4">
-        <p class="color__primary">Màu sắc</p>
-        <div class="product__colors">
-          <p class="product__color active product__color--gray"></p>
-          <p class="product__color product__color--gold"></p>
-          <p class="product__color product__color--white"></p>
-        </div>
+        <p class="color__dark x-2">{{product?.name}}</p>
       </div>
       <div class="product__detail--config mb-4">
-        <p class="color__primary text-center w-100">Chọn cấu hình</p>
-        <div class="configurations">
-          <div class="configurations--item">
-            <div class="configuration--item active">
+        <div class="configurations" *ngIf="productDetailList">
+          <div class="configurations--item" *ngFor="let productDetail of productDetailList, index as i">
+            <div class="configuration--item configuration--item{{i}}" (click)="changeProductDetailSelected(i, productDetail)" [ngClass]="i === 0 ? 'active' : ''">
+              <p class="text-right color__dark x-s text-under">{{product.price | number}} <sup>đ</sup> </p>
+              <p class=" color__primary x-m">{{product.price * (100-productDetail.discountVal)/100 | number}} <sup>đ</sup> </p>
               <p>
                 <i class="fa-solid fa-circle"></i>
-                CPU Apple M1 10 nhân
+                {{productDetail.cpu}}
               </p>
               <p>
                 <i class="fa-solid fa-circle"></i>
-                GPU Apple M1 10 nhân
+                {{productDetail.gpu}}
               </p>
               <p class="d-flex justify-content-between">
-                                    <span>
-                                        <i class="fa-solid fa-circle"></i>
-                                        RAM 16GB
-                                    </span>
                 <span>
-                                        <i class="fa-solid fa-circle"></i>
-                                        SSD 1TB
-                                    </span>
+                    <i class="fa-solid fa-circle"></i>
+                    Ram: {{productDetail.ram}} GB
+                </span>
+                <span>
+                    <i class="fa-solid fa-circle"></i>
+                    Color: {{productDetail.color}}
+                </span>
 
-              </p>
-              <p class="text-center color__primary x-m">32.000.000 đ</p>
-            </div>
-          </div>
-          <div class="configurations--item">
-            <div class="configuration--item">
-              <p>
-                <i class="fa-solid fa-circle"></i>
-                CPU Apple M1 10 nhân
-              </p>
-              <p>
-                <i class="fa-solid fa-circle"></i>
-                GPU Apple M1 10 nhân
               </p>
               <p class="d-flex justify-content-between">
-                                    <span>
-                                        <i class="fa-solid fa-circle"></i>
-                                        RAM 32GB
-                                    </span>
                 <span>
-                                        <i class="fa-solid fa-circle"></i>
-                                        SSD 1TB
-                                    </span>
+                    <i class="fa-solid fa-circle"></i>
+                    SSD: {{productDetail.ssd}}
+                </span>
+                <span>
+                    <i class="fa-solid fa-circle"></i>
+                    HDD: {{productDetail.hhd}}
+                </span>
 
               </p>
-              <p class="text-center  color__primary x-m">33.000.000 đ</p>
+
             </div>
           </div>
-          <div class="configurations--item">
-            <div class="configuration--item">
-              <p>
-                <i class="fa-solid fa-circle"></i>
-                CPU Apple M1 16 nhân
-              </p>
-              <p>
-                <i class="fa-solid fa-circle"></i>
-                GPU Apple M1 16 nhân
-              </p>
-              <p class="d-flex justify-content-between">
-                                    <span>
-                                        <i class="fa-solid fa-circle"></i>
-                                        RAM 64GB
-                                    </span>
-                <span>
-                                        <i class="fa-solid fa-circle"></i>
-                                        SSD 1TB
-                                    </span>
-
-              </p>
-              <p class="text-center color__primary x-m">38.000.000 đ</p>
-            </div>
-          </div>
-
         </div>
         <div class="w-100 d-flex justify-content-center">
-          <button class="product__pay">Mua Ngay</button>
+          <button class="product__pay" (click)="AddToCart()">Thêm vào giỏ hàng</button>
         </div>
       </div>
     </div>

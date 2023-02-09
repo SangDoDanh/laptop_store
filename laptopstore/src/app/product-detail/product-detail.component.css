@@ -100,7 +100,9 @@ h6 {
 .color__primary{
   color: #ec008c !important;
 }
-
+.text-right {
+  text-align: right;
+}
 .security {
   width: 100%;
   padding: 4px;
@@ -179,9 +181,12 @@ h6 {
   cursor: pointer;
 
 }
+.configuration--item {
+  padding: 0 8px;
+}
 
 .configuration--item.active {
-  border: 1px solid #ec008c;
+  border: 2px solid #ec008c;
 }
 
 .configuration--item p {
@@ -201,6 +206,13 @@ h6 {
 
 .x-m {
   font-size: 16px !important;
+}
+.x-s {
+  font-size: 12px !important;
+}
+
+.text-under {
+  text-decoration: line-through;
 }
 
 .product__pay {

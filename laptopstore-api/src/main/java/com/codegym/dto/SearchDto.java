@@ -3,7 +3,7 @@ package com.codegym.dto;
 import java.util.List;
 
 public class SearchDto {
-    private String producer;
+    private List<String> producer;
     private String nameSearch;
     private List<String> priceSearch;
     private List<String> inchSearch;
@@ -11,11 +11,11 @@ public class SearchDto {
     public SearchDto() {
     }
 
-    public String getProducer() {
+    public List<String> getProducer() {
         return producer;
     }
 
-    public void setProducer(String producer) {
+    public void setProducer(List<String> producer) {
         this.producer = producer;
     }
 

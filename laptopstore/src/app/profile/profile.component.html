@@ -1,0 +1,81 @@
+  <div class="container mt-4 box__profile">
+    <div class="row">
+      <div class="col-lg-3">
+        <img class="avatar" src="./assets/images/ava1.jpg">
+      </div>
+      <div class="col-lg-9">
+        <div class="profile" *ngIf="customer">
+          <div class="profile__name profile__item">
+            <div class="d-flex justify-content-between">
+              <div>
+                <i class="fa-solid fa-user-astronaut"></i>
+                <span class="mx-2">Xin chào</span>
+              </div>
+              <div>
+                <i class="fa-solid fa-pen-to-square"></i>
+              </div>
+            </div>
+            <p>{{customer.first_name +' '+ customer.last_name}}</p>
+          </div>
+          <div class="profile__email profile__item">
+            <div class="d-flex justify-content-between">
+              <div>
+                <i class="fa-solid fa-envelope"></i>
+                <span class="mx-2">Email</span>
+              </div>
+              <div>
+                <i class="fa-solid fa-pen-to-square"></i>
+              </div>
+            </div>
+            <p> {{customer.email}}</p>
+          </div>
+          <div class="profile__birthday profile__item">
+            <div class="d-flex justify-content-between">
+              <div>
+                <i class="fa-solid fa-cake-candles"></i>
+                <span class="mx-2">Ngày sinh</span>
+              </div>
+              <div>
+                <i class="fa-solid fa-pen-to-square"></i>
+              </div>
+            </div>
+            <p>{{customer.birth_day| date: 'dd/MM/yyyy'}}</p>
+          </div>
+          <div class="profile__gender profile__item">
+            <div class="d-flex justify-content-between">
+              <div>
+                <i class="fa-solid fa-venus-mars"></i>
+                <span class="mx-2">Giới tính</span>
+              </div>
+              <div>
+                <i class="fa-solid fa-pen-to-square"></i>
+              </div>
+            </div>
+            <p>{{customer.gender == '1' ? 'Nam' : 'Nữ'}}</p>
+          </div>
+          <div class="profile__phone profile__item">
+            <div class="d-flex justify-content-between">
+              <div>
+                <i class="fa-solid fa-mobile"></i>
+                <span class="mx-2">Số điện thoại</span>
+              </div>
+              <div>
+                <i class="fa-solid fa-pen-to-square"></i>
+              </div>
+            </div>
+            <p>{{customer.phone}}</p>
+          </div>
+          <div class="profile__point profile__item">
+            <i class="fa-solid fa-piggy-bank"></i>
+            <span class="mx-2">Điểm tích lũy</span>
+            <p>{{customer.customerPoint}}</p>
+          </div>
+          <div class="profile__rank profile__item">
+            <i class="fa-solid fa-ranking-star"></i>
+            <span class="mx-2">Bạn là khách hàng</span>
+            <p>{{customer.customerName}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

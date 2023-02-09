@@ -1,0 +1,343 @@
+*:not(i) {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+ul,
+li,
+p,
+h1,
+body,
+html,
+form,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+.cart_heading {
+  color: #ec008c;
+}
+
+.cart__list {
+  max-height: 70vh;
+  overflow-y: scroll;
+  /* background-color: #ecf0f1; */
+}
+
+.cart__item {
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  /*border-bottom: 1px solid #ec008c;*/
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.35);
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.cart__detail {
+  color: #7f8c8d;
+}
+
+.cart__detail .product__price, .cart__total__price {
+  color: #ec008c;
+  font-size: 18px;
+}
+
+.cart__detail .product__name {
+  cursor: pointer;
+}
+.cart__item:hover {
+  box-shadow: 1px 1px 17px rgba(0, 0, 0, 0.35);
+}
+
+.quality__plus, .quality__minus {
+  border: none;
+  font-size: 16px;
+  color: #7f8c8d;
+}
+
+.quality__plus:hover, .quality__minus:hover {
+  color: #ec008c;
+
+}
+
+.quality {
+  font-size: 20px;
+  color: #ec008c;
+  display: inline-block;
+  margin: 0 8px;
+}
+
+.checkboxs {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkboxs input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: -16px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border: 1px solid #ec008c;
+  border-radius: 3px;
+  background-color: white;
+}
+
+/* On mouse-over, add a grey background color */
+.checkboxs:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkboxs input:checked ~ .checkmark {
+  background-color: #ec008c;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkboxs input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkboxs .checkmark:after {
+  left: 9px;
+  width: 8px;
+  height: 16px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.product__colors {
+  margin-top: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+}
+.product__colors p {
+  font-size: 12px;
+  margin-bottom: 4px;
+  color: #181818;
+}
+.product__color {
+  display: block;
+  width: 16px;
+  border: 1px solid #7f8c8d;
+  border-radius: 50%;
+  height: 16px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+p{
+  margin: 0;
+  padding: 0;
+}
+.product__color:hover {
+  border: 1.5px solid #ec008c;
+
+}
+
+
+.product__color.active {
+  border: 1.5px solid #ec008c;
+}
+
+.product__color--gray {
+  background-color: #7f8c8d;
+}
+
+.product__color--gold {
+  background-color: #f1f900;
+}
+
+.product__color--white {
+  background-color: #ffffff;
+}
+.cart__item--price {
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+.cart__remove {
+  margin-top: 8px;
+  cursor: pointer;
+}
+.cart__remove i {
+  font-size: 14px;
+  color: #7f8c8d;
+}
+
+.cart__remove i:hover {
+  color: #ec008c;
+}
+
+.pay__now {
+  margin-top: 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 25px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  background: #ec008c;
+  background: -webkit-linear-gradient(to right, #fc6767, #ec008c);
+  background: linear-gradient(to right, #fc6767, #ec008c);
+  color: white;
+}
+
+.note {
+  color: #7f8c8d;
+  font-size: 12px !important;
+}
+.note .color__primary {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 12px !important;
+}
+
+.color__primary {
+  font-size: 20px;
+  color: #ec008c;
+}
+
+.ship__list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ship__list img {
+  display: block;
+  width: 80px;
+  height: 50px;
+  border: 2px solid transparent;
+}
+
+.ship__list img:hover {
+  border: 2px solid #ec008c;
+  border-radius: 4px;
+}
+
+.ship__list img.active {
+  border: 2px solid #ec008c;
+  border-radius: 4px;
+}
+
+.ship__address {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.address__value {
+  color: #7f8c8d;
+}
+
+.title__ship {
+  text-align: center;
+  padding: 4px 12px;
+  border-radius: 4px 50px 0 0;
+  background: #ec008c;
+  background: -webkit-linear-gradient(to right, #fc6767, #ec008c);
+  background: linear-gradient(to right, #fc6767, #ec008c);
+  color: white;
+}
+
+.link {
+  color: #ec008c;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.my__pay {
+  position: relative;
+}
+#myPaypalButtons {
+  position: absolute;
+  top: 62px;
+  right: 0;
+}
+.product__name {
+
+}
+.btn-delete {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 3px 12px;
+  background: #ec008c;
+  background: -webkit-linear-gradient(to right, #fc6767, #ec008c);
+  background: linear-gradient(to right, #fc6767, #ec008c);
+  color: white;
+}
+.cart__list {
+  padding: 24px;
+}
+
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(77, 81, 84, 0.14);
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ec008c;
+  background: -webkit-linear-gradient(to bottom, #fc6767, #ec008c);
+  background: linear-gradient(to bottom, #fc6767, #ec008c);
+  border-radius: 10px;
+}
+.title_history {
+  background: -webkit-linear-gradient( #fc6767, #ec008c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.product__name {
+  background: -webkit-linear-gradient( #fc6767, #ec008c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  width: 50%;
+  border-bottom: 2px solid transparent;
+  font-size: 18px;
+
+}
+.product__name {
+  border-bottom: 2px solid #ec008c;
+}

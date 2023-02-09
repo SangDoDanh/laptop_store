@@ -32,9 +32,20 @@ public class Customer {
     @OneToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Address> addressSet;
     private Boolean isRemove;
 
     public Customer() {
+    }
+
+    public Set<Address> getAddressSet() {
+        return addressSet;
+    }
+
+    public void setAddressSet(Set<Address> addressSet) {
+        this.addressSet = addressSet;
     }
 
     public Set<Orders> getOrders() {
